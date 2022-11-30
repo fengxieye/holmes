@@ -1,4 +1,4 @@
-module mosn.io/holmes
+module fengxieye/holmes
 
 go 1.14
 
