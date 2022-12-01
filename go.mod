@@ -1,4 +1,4 @@
-module fengxieye/holmes
+module github.com/fengxieye/holmes
 
 go 1.14
 
