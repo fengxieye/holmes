@@ -763,6 +763,10 @@ func (h *Holmes) gcHeapProfile(gc int, force bool, c typeOption) bool {
 }
 
 func (h *Holmes) writeProfileDataToFile(data bytes.Buffer, dumpType configureType, eventID string) string {
+	if !h.opts.writeFile {
+		return ""
+	}
+
 	fileName, err := writeFile(data, dumpType, h.opts.DumpOptions, eventID)
 	if err != nil {
 		h.Errorf("failed to write profile to file(%v), err: %s", fileName, err.Error())
@@ -820,7 +824,7 @@ func (h *Holmes) EnableProfileReporter() {
 }
 
 func (h *Holmes) ReportProfile(pType string, filename string, reason ReasonType, eventID string, sampleTime time.Time, pprofBytes []byte, scene Scene) {
-	if filename == "" {
+	if filename == "" && h.opts.writeFile {
 		h.Errorf("dump name is empty, type:%s, reason:%s, eventID:%s", pType, reason.String(), eventID)
 		return
 	}

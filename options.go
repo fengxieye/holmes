@@ -65,6 +65,9 @@ type options struct {
 
 	// profile reporter
 	rptOpts *ReporterOptions
+
+	//是否写文件
+	writeFile bool
 }
 
 type ReporterOptions struct {
@@ -285,6 +288,13 @@ func WithGoroutineDump(min int, diff int, abs int, max int, coolDown time.Durati
 func WithDumpToLogger(new bool) Option {
 	return optionFunc(func(opts *options) (err error) {
 		opts.DumpToLogger = new
+		return
+	})
+}
+
+func WithFile(use bool) Option {
+	return optionFunc(func(opts *options) (err error) {
+		opts.writeFile = use
 		return
 	})
 }
